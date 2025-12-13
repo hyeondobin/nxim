@@ -10,6 +10,14 @@ vim.keymap.set("c", "<M-w>", "xa<CR>", opts)
 vim.keymap.set("n", "WQ", "ZZ", opts)
 vim.keymap.set("n", "<leader>w", vim.cmd.w, { desc = "Save current file", unpack(opts)})
 
+-- Yanking with system clipboard
+vim.keymap.set({"n","v", "x"}, "<leader>y", '"+y', { desc = "Yank to clipboard", unpack(opts)})
+vim.keymap.set({"n","v", "x"}, "<leader>Y", '"+yy', { desc = "Yank line to clipboard", unpack(opts)})
+vim.keymap.set({"n","v", "x"}, "<leader>p", '"+p', { desc = "Paste from clipboard", unpack(opts)})
+vim.keymap.set("i", "<C-p>", '<C-r>+', { desc = "Paste from clipboard from within insert mode", unpack(opts)})
+vim.keymap.set("x", "<leader>P", '"_dP', { desc = "Paste over selection without erasing unnamed register", unpack(opts)})
+
+
 -- default movement, but better
 vim.keymap.set("n", "j", "gj", opts)
 vim.keymap.set("n", "k", "gk", opts)
@@ -32,6 +40,14 @@ vim.keymap.set("n", "<C-h>", "<C-w>h", opts)
 vim.keymap.set("n", "<C-j>", "<C-w>j", opts)
 vim.keymap.set("n", "<C-k>", "<C-w>k", opts)
 vim.keymap.set("n", "<C-l>", "<C-w>l", opts)
+
+-- move between buffers with Shift + H,L
+vim.keymap.set("n", "H", "<cmd>bp<CR>", opts)
+vim.keymap.set("n", "L", "<cmd>bn<CR>", opts)
+
+-- new line before the cursor
+vim.keymap.set("i", "<M-O>", "O", opts)
+
 
 -- Cancel with C-c
 vim.keymap.set("n", "<C-c>", "<Esc>", opts)
