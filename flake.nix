@@ -43,10 +43,10 @@
   # see :help nixCats.flake.outputs
   outputs =
     {
-    self,
-    nixpkgs,
-    nixCats,
-    ...
+      self,
+      nixpkgs,
+      nixCats,
+      ...
     }@inputs:
     let
       inherit (nixCats) utils;
@@ -92,13 +92,13 @@
       # :help nixCats.flake.outputs.categoryDefinitions.scheme
       categoryDefinitions =
         {
-        pkgs,
-        settings,
-        categories,
-        extra,
-        name,
-        mkPlugin,
-        ...
+          pkgs,
+          settings,
+          categories,
+          extra,
+          name,
+          mkPlugin,
+          ...
         }@packageDef:
         {
           # to define and use a new category, simply add a new list to a set here,
@@ -116,11 +116,12 @@
               ripgrep
               fd
             ];
-                        format = with pkgs; [
-                            stylua
-                        ];
+            format = with pkgs; [
+              stylua
+              nixfmt
+            ];
             lint = with pkgs; [
-
+              selene
             ];
             neonixdev = {
               inherit (pkgs) nix-doc lua-language-server nixd;
@@ -162,9 +163,9 @@
             ];
             general = {
               blink = with pkgs.vimPlugins; [
-                                luasnip
+                luasnip
                 cmp-cmdline
-                                blink-cmp
+                blink-cmp
                 blink-compat
                 colorful-menu-nvim
               ];
@@ -177,7 +178,7 @@
               telescope = with pkgs.vimPlugins; [
                 telescope-fzf-native-nvim
                 telescope-ui-select-nvim
-                                telescope-nvim
+                telescope-nvim
               ];
               default = with pkgs.vimPlugins; [
                 nvim-lspconfig
@@ -192,6 +193,7 @@
                 which-key-nvim
                 comment-nvim
                 undotree
+                vim-sleuth
                 vim-startuptime
                 indent-blankline-nvim
               ];
@@ -305,7 +307,10 @@
               # this can be changed so that you can choose which ones share data folders for auths
               # :h $NVIM_APPNAME
               configDirName = "nxim";
-              aliases = [ "testCat" "rc" ];
+              aliases = [
+                "testCat"
+                "rc"
+              ];
               neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
             };
             categories = {
@@ -329,74 +334,74 @@
       defaultPackageName = "nxim";
     in
 
-      # see :help nixCats.flake.outputs.exports
-      forEachSystem (
-        system:
-        let
-          nixCatsBuilder = utils.baseBuilder luaPath {
-            inherit
+    # see :help nixCats.flake.outputs.exports
+    forEachSystem (
+      system:
+      let
+        nixCatsBuilder = utils.baseBuilder luaPath {
+          inherit
             nixpkgs
             system
             dependencyOverlays
             extra_pkg_config
             ;
-          } categoryDefinitions packageDefinitions;
-          defaultPackage = nixCatsBuilder defaultPackageName;
-          # this is just for using utils such as pkgs.mkShell
-          # The one used to build neovim is resolved inside the builder
-          # and is passed to our categoryDefinitions and packageDefinitions
-          pkgs = import nixpkgs { inherit system; };
-        in
-          {
-          # these outputs will be wrapped with ${system} by utils.eachSystem
+        } categoryDefinitions packageDefinitions;
+        defaultPackage = nixCatsBuilder defaultPackageName;
+        # this is just for using utils such as pkgs.mkShell
+        # The one used to build neovim is resolved inside the builder
+        # and is passed to our categoryDefinitions and packageDefinitions
+        pkgs = import nixpkgs { inherit system; };
+      in
+      {
+        # these outputs will be wrapped with ${system} by utils.eachSystem
 
-          # this will make a package out of each of the packageDefinitions defined above
-          # and set the default package to the one passed in here.
-          packages = utils.mkAllWithDefault defaultPackage;
+        # this will make a package out of each of the packageDefinitions defined above
+        # and set the default package to the one passed in here.
+        packages = utils.mkAllWithDefault defaultPackage;
 
-          # choose your package for devShell
-          # and add whatever else you want in it.
-          devShells = {
-            default = pkgs.mkShell {
-              name = defaultPackageName;
-              packages = [ defaultPackage ];
-              inputsFrom = [ ];
-              shellHook = '''';
-            };
+        # choose your package for devShell
+        # and add whatever else you want in it.
+        devShells = {
+          default = pkgs.mkShell {
+            name = defaultPackageName;
+            packages = [ defaultPackage ];
+            inputsFrom = [ ];
+            shellHook = '''';
           };
+        };
 
-        }
-      )
+      }
+    )
     // (
       let
         # we also export a nixos module to allow reconfiguration from configuration.nix
         nixosModule = utils.mkNixosModules {
           moduleNamespace = [ defaultPackageName ];
           inherit
-          defaultPackageName
-          dependencyOverlays
-          luaPath
-          categoryDefinitions
-          packageDefinitions
-          extra_pkg_config
-          nixpkgs
-          ;
+            defaultPackageName
+            dependencyOverlays
+            luaPath
+            categoryDefinitions
+            packageDefinitions
+            extra_pkg_config
+            nixpkgs
+            ;
         };
         # and the same for home manager
         homeModule = utils.mkHomeModules {
           moduleNamespace = [ defaultPackageName ];
           inherit
-          defaultPackageName
-          dependencyOverlays
-          luaPath
-          categoryDefinitions
-          packageDefinitions
-          extra_pkg_config
-          nixpkgs
-          ;
+            defaultPackageName
+            dependencyOverlays
+            luaPath
+            categoryDefinitions
+            packageDefinitions
+            extra_pkg_config
+            nixpkgs
+            ;
         };
       in
-        {
+      {
 
         # these outputs will be NOT wrapped with ${system}
 

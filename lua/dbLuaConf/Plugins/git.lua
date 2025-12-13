@@ -77,4 +77,15 @@ return {
 			vim.cmd([[hi GitSignsDelete guifg=#fa2525]])
 		end,
 	},
+	{
+		"lazygit.nvim",
+		event = "DeferredUIEnter",
+		cmd = { "LazyGit", "LazyGitConfig", "LazyGitCurrentFile", "LazyagitFilter", "LazyagitFilterCurrentFile"},
+		keys = {
+			{
+				"<leader>gl", "<cmd>LazyGit<CR>", mode = { "n" },
+				desc = "Open [L]azygit",
+			},
+		},
+	},
 }

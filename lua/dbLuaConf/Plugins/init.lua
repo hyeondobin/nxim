@@ -127,6 +127,9 @@ require("lze").load({
 		end,
 	},
     { import = "dbLuaConf.Plugins.git" },
+    { "vim-sleuth",
+        event = "DeferredUIEnter",
+    },
 	{
 		"which-key.nvim",
 		for_cat = "general.extra",
