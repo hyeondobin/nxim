@@ -5,15 +5,11 @@ return {
         load = function (name)
             vim.cmd.packadd(name)
             vim.cmd.packadd("nvim-treesitter-textobjects")
+            vim.cmd.packadd("nvim-treesitter-context")
         end,
         after = function(plugin)
             require("nvim-treesitter.configs").setup{
-                auto_install = true,
-                ignore_install = { "yaml", "org" },
-                sync_install = false,
-                highlight = {
-                    enable = true,
-                },
+                highlight = {  enable = true, },
                 indent = {
                     enable = true,
                 },
@@ -73,9 +69,5 @@ return {
                 },
             } 
         end,
-    },
-    {
-        "nvim-treesitter/nvim-treesitter-context",
-        event = "DeferredUIEnter",
     },
 }
