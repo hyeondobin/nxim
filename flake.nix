@@ -288,6 +288,7 @@ extra = [
           { pkgs, ... }@misc:
           {
             settings = {
+                            aliases = [ rc ];
               suffix-path = true;
               suffix-LD = true;
               # IMPURE PACKAGE: normal config reload
