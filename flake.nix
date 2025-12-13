@@ -289,7 +289,6 @@ extra = [
           { pkgs, ... }@misc:
           {
             settings = {
-                            aliases = [ rc ];
               suffix-path = true;
               suffix-LD = true;
               # IMPURE PACKAGE: normal config reload
@@ -302,7 +301,7 @@ extra = [
               # this can be changed so that you can choose which ones share data folders for auths
               # :h $NVIM_APPNAME
               configDirName = "nxim";
-              aliases = [ "testCat" ];
+              aliases = [ "testCat" "rc" ];
               neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
             };
             categories = {
