@@ -34,7 +34,7 @@ if nixCats("general.extra") then
 end
 
 require("lze").load({
-	{ import = "dbLuaConf.Plugins.telescope", },
+	{ import = "dbLuaConf.Plugins.telescope" },
 	{ import = "dbLuaConf.Plugins.treesitter" },
 	{ import = "dbLuaConf.Plugins.completion" },
 	{
@@ -126,10 +126,11 @@ require("lze").load({
 			})
 		end,
 	},
-    { import = "dbLuaConf.Plugins.git" },
-    { "vim-sleuth",
-        event = "DeferredUIEnter",
-    },
+	{ import = "dbLuaConf.Plugins.git" },
+	{
+		"vim-sleuth",
+		event = "DeferredUIEnter",
+	},
 	{
 		"which-key.nvim",
 		for_cat = "general.extra",
@@ -139,8 +140,8 @@ require("lze").load({
 			require("which-key").add({
 				{ "<leader>g", group = "[g]it" },
 				{ "<leader>g_", hidden = true },
-                { "<leader>s", group = "[S]earch" },
-                { "<leader>s_", hidden = true },
+				{ "<leader>s", group = "[S]earch" },
+				{ "<leader>s_", hidden = true },
 			})
 		end,
 	},

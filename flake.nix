@@ -136,6 +136,7 @@
                 lze
                 lzextras
                 plenary-nvim
+                (nvim-notify.overrideAttrs { doCheck = false; })
               ];
 
               extra = [
@@ -157,6 +158,9 @@
             ];
             format = with pkgs.vimPlugins; [
               conform-nvim
+            ];
+            markdown = with pkgs.vimPlugins; [
+              markdown-preview-nvim
             ];
             neonixdev = with pkgs.vimPlugins; [
               lazydev-nvim

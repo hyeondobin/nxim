@@ -7,6 +7,7 @@ require("lze").register_handlers(require("nixCatsUtils.lzUtils").for_cat)
 require("lze").register_handlers(require("lzextras").lsp)
 
 require("dbLuaConf.Plugins")
+
 require("dbLuaConf.LSPs")
 
 if nixCats("lint") then
