@@ -1,4 +1,4 @@
-local indent = 4
+local indent = 2
 
 -- Tab / Indentation
 vim.opt.tabstop = indent
