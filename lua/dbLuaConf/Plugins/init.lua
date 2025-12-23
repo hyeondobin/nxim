@@ -70,6 +70,13 @@ require("lze").load({
 		end,
 	},
 	{
+		"nvim-autopairs",
+		event = "InsertEnter",
+		after = function()
+			require("nvim-autopairs").setup()
+		end,
+	},
+	{
 		"fidget.nvim",
 		event = "DeferredUIEnter",
 		after = function(plugin)
