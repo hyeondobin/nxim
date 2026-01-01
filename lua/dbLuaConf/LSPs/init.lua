@@ -164,18 +164,4 @@ require("lze").load({
 			},
 		},
 	},
-	{
-		"rust-analyzer",
-		enabled = nixCats("rust"),
-		lsp = {
-			settings = {
-				["rust-analyzer"] = {
-					checkOnSave = {
-						command = "clippy",
-					},
-					procMacro = { enable = true },
-				},
-			},
-		},
-	},
 })
