@@ -28,6 +28,11 @@
       url = "github:nix-community/neovim-nightly-overlay";
     };
 
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     # see :help nixCats.flake.inputs
     # If you want your plugin to be loaded by the standard overlay,
     # i.e. if it wasnt on nixpkgs, but doesnt have an extra build step.
@@ -115,6 +120,17 @@
               universal-ctags
               ripgrep
               fd
+            ];
+            rust = [
+              # inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.stable.toolchain
+              (inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.stable.withComponents [
+                "cargo"
+                "rustc"
+                "rust-src"
+                "rust-analyzer"
+                "rustfmt"
+                "clippy"
+              ])
             ];
             format = with pkgs; [
               stylua
@@ -287,6 +303,7 @@
               themes = true;
               customPlugins = true;
               test = true;
+              rust = true;
             };
             extra = {
               nixdExtras = {
@@ -320,6 +337,7 @@
             categories = {
               general = true;
               neonixdev = true;
+              rust = true;
               lint = true;
               format = true;
               test = true;
