@@ -37,6 +37,7 @@ require("lze").load({
 	{ import = "dbLuaConf.Plugins.telescope" },
 	{ import = "dbLuaConf.Plugins.treesitter" },
 	{ import = "dbLuaConf.Plugins.completion" },
+	{ import = "dbLuaConf.Plugins.rust" },
 	{
 		"undotree",
 		cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotreePersistUndo" },

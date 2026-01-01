@@ -160,6 +160,9 @@
                 mini-icons
               ];
             };
+            rust = with pkgs.vimPlugins; [
+              rustaceanvim
+            ];
             themes = with pkgs.vimPlugins; [
               catppuccin-nvim
             ];
@@ -218,9 +221,6 @@
                 indent-blankline-nvim
               ];
             };
-            rust = with pkgs.vimPlugins; [
-              rustaceanvim
-            ];
           };
 
           # shared libraries to be added to LD_LIBRARY_PATH
