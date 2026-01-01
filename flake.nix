@@ -193,8 +193,8 @@
                 colorful-menu-nvim
               ];
               treesitter = with pkgs.vimPlugins; [
-                nvim-treesitter-textobjects
                 nvim-treesitter.withAllGrammars
+                # nvim-treesitter-textobjects
                 nvim-treesitter-context
                 nvim-autopairs
               ];
