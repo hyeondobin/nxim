@@ -329,7 +329,7 @@
               # IMPURE PACKAGE: normal config reload
               # include same categories as main config,
               # will load from vim.fn.stdpath('config')
-              wrapRC = false;
+              wrapRC = true;
               # or tell it some other place to load
               # unwrappedCfgPath = "/some/path/to/your/config";
               # configDirName: will now look for `nxim` within .config and .local and others
@@ -363,7 +363,7 @@
       };
       # In this section, the main thing you will need to do is change the default package name
       # to the name of the packageDefinitions entry you wish to use as the default.
-      defaultPackageName = "nxim";
+      defaultPackageName = "regularCats";
     in
 
     # see :help nixCats.flake.outputs.exports
