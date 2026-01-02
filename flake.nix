@@ -120,6 +120,7 @@
               universal-ctags
               ripgrep
               fd
+              tree-sitter
             ];
             rust = [
               # inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.stable.toolchain
@@ -131,6 +132,9 @@
                 "rustfmt"
                 "clippy"
               ])
+            ];
+            AI = with pkgs; [
+              gemini-cli
             ];
             format = with pkgs; [
               stylua
@@ -153,6 +157,12 @@
                 lzextras
                 plenary-nvim
                 (nvim-notify.overrideAttrs { doCheck = false; })
+              ];
+              treesitter = with pkgs.vimPlugins; [
+                nvim-treesitter.withAllGrammars
+                # nvim-treesitter-textobjects
+                nvim-treesitter-context
+                nvim-autopairs
               ];
 
               extra = [
@@ -191,12 +201,6 @@
                 blink-cmp
                 blink-compat
                 colorful-menu-nvim
-              ];
-              treesitter = with pkgs.vimPlugins; [
-                nvim-treesitter.withAllGrammars
-                # nvim-treesitter-textobjects
-                nvim-treesitter-context
-                nvim-autopairs
               ];
               telescope = with pkgs.vimPlugins; [
                 telescope-fzf-native-nvim
@@ -307,6 +311,7 @@
               customPlugins = true;
               test = true;
               rust = true;
+              AI = true;
             };
             extra = {
               nixdExtras = {
@@ -331,6 +336,7 @@
               # this can be changed so that you can choose which ones share data folders for auths
               # :h $NVIM_APPNAME
               configDirName = "nxim";
+              unwrappedCfgPath = "~/repo/nxim";
               aliases = [
                 "testCat"
                 "rc"
@@ -346,6 +352,7 @@
               test = true;
               lspDebugMode = false;
               themes = true;
+              AI = true;
             };
             extra = {
               nixdExtras = {
