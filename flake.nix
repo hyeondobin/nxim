@@ -287,7 +287,7 @@
             settings = {
               suffix-path = true;
               suffix-LD = true;
-              wrapRc = false;
+              wrapRc = true;
               # IMPORTANT:
               # your alias may not conflict with your other packages.
               aliases = [
@@ -329,7 +329,7 @@
               # IMPURE PACKAGE: normal config reload
               # include same categories as main config,
               # will load from vim.fn.stdpath('config')
-              wrapRC = true;
+              wrapRC = false;
               # or tell it some other place to load
               # unwrappedCfgPath = "/some/path/to/your/config";
               # configDirName: will now look for `nxim` within .config and .local and others
