@@ -335,7 +335,7 @@
               # configDirName: will now look for `nxim` within .config and .local and others
               # this can be changed so that you can choose which ones share data folders for auths
               # :h $NVIM_APPNAME
-              configDirName = "nxim";
+              configDirName = "regularCats";
               unwrappedCfgPath = "/home/hyeondobin/repo/nxim";
               aliases = [
                 "testCat"
