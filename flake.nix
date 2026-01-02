@@ -287,7 +287,7 @@
             settings = {
               suffix-path = true;
               suffix-LD = true;
-              wrapRc = true;
+              wrapRc = false;
               # IMPORTANT:
               # your alias may not conflict with your other packages.
               aliases = [
@@ -336,7 +336,7 @@
               # this can be changed so that you can choose which ones share data folders for auths
               # :h $NVIM_APPNAME
               configDirName = "nxim";
-              unwrappedCfgPath = "~/repo/nxim";
+              unwrappedCfgPath = "/home/hyeondobin/repo/nxim";
               aliases = [
                 "testCat"
                 "rc"
