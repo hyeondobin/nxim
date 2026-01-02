@@ -331,7 +331,7 @@
               # IMPORTANT:
               # your alias may not conflict with your other packages.
               aliases = [
-                "nvim"
+                # "nvim"
                 "vim"
                 "nx"
                 "xi"
