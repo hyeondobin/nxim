@@ -15,8 +15,8 @@ vim.opt.ignorecase = true
 vim.opt.smartcase = true
 
 -- Appearance
--- vim.opt.number = true
--- vim.opt.relativenumber = true
+vim.opt.number = true
+vim.opt.relativenumber = true
 vim.opt.signcolumn = "yes:1"
 vim.opt.colorcolumn = "100"
 vim.opt.cmdheight = 1
