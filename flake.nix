@@ -294,7 +294,7 @@
               # configDirName: will now look for `nxim` within .config and .local and others
               # this can be changed so that you can choose which ones share data folders for auths
               # :h $NVIM_APPNAME
-              configDirName = "regularCats";
+              configDirName = "nxim";
               # unwrappedCfgPath = "/home/hyeondobin/repo/nxim";
               aliases = [
                 "testCat"
@@ -331,7 +331,7 @@
               # IMPORTANT:
               # your alias may not conflict with your other packages.
               aliases = [
-                # "nvim"
+                "nvim"
                 "vim"
                 "nx"
                 "xi"
@@ -363,7 +363,7 @@
       };
       # In this section, the main thing you will need to do is change the default package name
       # to the name of the packageDefinitions entry you wish to use as the default.
-      defaultPackageName = "regularCats";
+      defaultPackageName = "nxim";
     in
 
     # see :help nixCats.flake.outputs.exports
