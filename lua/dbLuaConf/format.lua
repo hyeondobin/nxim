@@ -1,15 +1,12 @@
-require("lze").load({
-	{
-		"conform.nvim",
-		for_cat = "format",
-		-- cmd = { "" },
+if nixCats("format") then
+return	{
+		"stevearc/conform.nvim",
 		event = "BufReadPre",
-		-- ft = "",
 		keys = {
 			{ "<leader>FF", desc = "[F]ormat [F]ile" },
 		},
 		-- colorscheme = "",
-		after = function(plugin)
+		config = function(plugin)
 			local conform = require("conform")
 
 			conform.setup({
@@ -42,5 +39,5 @@ require("lze").load({
 				})
 			end, { desc = "[F]ormat [F]ile" })
 		end,
-	},
-})
+	}
+end

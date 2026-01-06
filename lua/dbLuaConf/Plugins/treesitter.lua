@@ -1,7 +1,7 @@
 return {
 	{
-		"nvim-treesitter",
-		event = "DeferredUIEnter",
+		"nvim-treesitter/nvim-treesitter",
+		event = "VeryLazy",
 		load = function(name)
 			vim.cmd.packadd(name)
 			vim.cmd.packadd("nvim-treesitter-textobjects")

@@ -37,12 +37,15 @@ end
 
 return {
 	{
-		"telescope.nvim",
-		for_cat = "general.telescope",
+		"nvim-telescope/telescope.nvim",
+		dependencies = {
+			"nvim-telescope/telescope-fzf-native.nvim",
+			"nvim-telescope/telescope-ui-select.nvim",
+		},
 		cmd = { "Telescope", "LiveGrepGitRoot" },
 		-- NOTE: our on attach function defines keybinds that call telescope.
 		-- so, the on_require handler will load telescope when we use those.
-		on_require = { "telescope" },
+		-- on_require = { "telescope" },
 		-- event = "",
 		-- ft = "",
 		keys = {
@@ -154,12 +157,12 @@ return {
 			},
 		},
 		-- colorscheme = "",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("telescope-fzf-native.nvim")
-			vim.cmd.packadd("telescope-ui-select.nvim")
-		end,
-		after = function(plugin)
+		-- load = function(name)
+		-- 	vim.cmd.packadd(name)
+		-- 	vim.cmd.packadd("telescope-fzf-native.nvim")
+		-- 	vim.cmd.packadd("telescope-ui-select.nvim")
+		-- end,
+		config = function(plugin)
 			require("telescope").setup({
 				-- You can put your default mappings / updates / etc. in here
 				--  All the info you're looking for is in `:help telescope.setup()`

@@ -1,45 +1,51 @@
-local colorschemeName = "catppuccin-macchiato"
-vim.cmd.colorscheme(colorschemeName)
+-- local ok, notify = pcall(require, "notify")
+-- if ok then
+-- 	notify.setup({
+-- 		on_open = function(win)
+-- 			vim.api.nvim_win_set_config(win, { focusable = false })
+-- 		end,
+-- 	})
+-- 	vim.notify = notify
+-- 	vim.keymap.set("n", "<Esc>", function()
+-- 		notify.dismiss({ silent = true })
+-- 	end, { desc = "dismiss notify popup and clear hlsearch" })
+-- end
 
-local ok, notify = pcall(require, "notify")
-if ok then
-	notify.setup({
-		on_open = function(win)
-			vim.api.nvim_win_set_config(win, { focusable = false })
-		end,
-	})
-	vim.notify = notify
-	vim.keymap.set("n", "<Esc>", function()
-		notify.dismiss({ silent = true })
-	end, { desc = "dismiss notify popup and clear hlsearch" })
-end
-
-if nixCats("general.extra") then
-	vim.g.loaded_netrwPlugin = 1
-	require("oil").setup({
-		default_file_explorer = true,
-		view_options = {
-			show_hidden = true,
-		},
-		columns = {
-			"icon",
-			"permissions",
-			"size",
-			-- "mtime",
-		},
-		keymaps = {},
-	})
-	vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Parent Directory" })
-	vim.keymap.set("n", "<leader>-", "<cmd>Oil .<CR>", { noremap = true, desc = "Open nvim root directory" })
-end
-
-require("lze").load({
-	{ import = "dbLuaConf.Plugins.telescope" },
-	{ import = "dbLuaConf.Plugins.treesitter" },
-	{ import = "dbLuaConf.Plugins.completion" },
-	{ import = "dbLuaConf.Plugins.rust" },
+return {
 	{
-		"undotree",
+		"rcarriga/nvim-notify",
+		lazy = false,
+	},
+	{
+		"stevearc/oil.nvim",
+		---@module 'oil'
+		---@type oil.SetupOpts
+		opts = {},
+		config = function()
+			vim.g.loaded_netrwPlugin = 1
+			require("oil").setup({
+				default_file_explorer = true,
+				view_options = {
+					show_hidden = true,
+				},
+				columns = {
+					"icon",
+					"permissions",
+					"size",
+					-- "mtime",
+				},
+				keymaps = {},
+			})
+			vim.keymap.set("n", "-", "<cmd>Oil<CR>", { noremap = true, desc = "Open Parent Directory" })
+			vim.keymap.set("n", "<leader>-", "<cmd>Oil .<CR>", { noremap = true, desc = "Open nvim root directory" })
+		end,
+		-- Optional dependencies
+		dependencies = { { "nvim-mini/mini.icons", opts = {} } },
+		-- dependencies = { "nvim-tree/nvim-web-devicons" }, -- use if you prefer nvim-web-devicons
+		lazy = false,
+	},
+	{
+		"mbbill/undotree",
 		cmd = { "UndotreeToggle", "UndotreeHide", "UndotreeShow", "UndotreeFocus", "UndotreePersistUndo" },
 		keys = {
 			{ "<leader>U", "<cmd>UndotreeToggle<CR>", mode = { "n" }, desc = "Undo Tree" },
@@ -50,44 +56,44 @@ require("lze").load({
 		end,
 	},
 	{
-		"comment.nvim",
-		event = "DeferredUIEnter",
-		after = function(plugin)
+		"numToStr/comment.nvim",
+		event = "VeryLazy",
+		config = function(plugin)
 			require("Comment").setup()
 		end,
 	},
 	{
-		"indent-blankline.nvim",
-		event = "DeferredUIEnter",
-		after = function(plugin)
+		"lukas-reineke/indent-blankline.nvim",
+		event = "VeryLazy",
+		config = function(plugin)
 			require("ibl").setup()
 		end,
 	},
 	{
-		"nvim-surround",
-		event = "DeferredUIEnter",
-		after = function(plugin)
+		"kylechui/nvim-surround",
+		event = "VeryLazy",
+		config = function(plugin)
 			require("nvim-surround").setup()
 		end,
 	},
 	{
-		"nvim-autopairs",
+		"windwp/nvim-autopairs",
 		event = "InsertEnter",
-		after = function()
+		config = function()
 			require("nvim-autopairs").setup()
 		end,
 	},
 	{
 		"fidget.nvim",
-		event = "DeferredUIEnter",
-		after = function(plugin)
+		event = "VeryLazy",
+		config = function(plugin)
 			require("fidget").setup({})
 		end,
 	},
 	{
-		"lualine.nvim",
-		event = "DeferredUIEnter",
-		after = function(plugin)
+		"nvim-lualine/lualine.nvim",
+		event = "VeryLazy",
+		config = function(plugin)
 			require("lualine").setup({
 				options = {
 					theme = colorschemeName,
@@ -136,14 +142,14 @@ require("lze").load({
 	},
 	{ import = "dbLuaConf.Plugins.git" },
 	{
-		"vim-sleuth",
-		event = "DeferredUIEnter",
+		"tpope/vim-sleuth",
+		event = "VeryLazy",
 	},
 	{
-		"which-key.nvim",
+		"folke/which-key.nvim",
 		for_cat = "general.extra",
-		event = "DeferredUIEnter",
-		after = function(plugin)
+		event = "VeryLazy",
+		config = function(plugin)
 			require("which-key").setup({})
 			require("which-key").add({
 				{ "<leader>g", group = "[g]it" },
@@ -153,4 +159,8 @@ require("lze").load({
 			})
 		end,
 	},
-})
+	{
+		import = "dbLuaConf.lint",
+	},
+	{ import = "dbLuaConf.format" },
+}

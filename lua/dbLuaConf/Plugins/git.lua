@@ -1,7 +1,7 @@
 return {
 	{
-		"gitsigns.nvim",
-		event = "DeferredUIEnter",
+		"lewis6991/gitsigns.nvim",
+		event = "VeryLazy",
 		after = function(plugin)
 			require("gitsigns").setup({
 				signs = {
@@ -78,12 +78,14 @@ return {
 		end,
 	},
 	{
-		"lazygit.nvim",
-		event = "DeferredUIEnter",
-		cmd = { "LazyGit", "LazyGitConfig", "LazyGitCurrentFile", "LazyagitFilter", "LazyagitFilterCurrentFile"},
+		"kdheepak/lazygit.nvim",
+		event = "VeryLazy",
+		cmd = { "LazyGit", "LazyGitConfig", "LazyGitCurrentFile", "LazyagitFilter", "LazyagitFilterCurrentFile" },
 		keys = {
 			{
-				"<leader>gl", "<cmd>LazyGit<CR>", mode = { "n" },
+				"<leader>gl",
+				"<cmd>LazyGit<CR>",
+				mode = { "n" },
 				desc = "Open [L]azygit",
 			},
 		},

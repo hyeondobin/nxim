@@ -48,7 +48,6 @@
   # see :help nixCats.flake.outputs
   outputs =
     {
-      self,
       nixpkgs,
       nixCats,
       ...
@@ -98,11 +97,11 @@
       categoryDefinitions =
         {
           pkgs,
-          settings,
-          categories,
-          extra,
-          name,
-          mkPlugin,
+          # settings,
+          # categories,
+          # extra,
+          # name,
+          # mkPlugin,
           ...
         }@packageDef:
         {
@@ -120,6 +119,7 @@
               universal-ctags
               ripgrep
               fd
+              stdenv.cc.cc
               tree-sitter
             ];
             rust = [
@@ -150,51 +150,8 @@
 
           # This is for plugins that will load at startup without using packadd:
           startupPlugins = {
-            gitPlugins = with pkgs.neovimPlugins; [ ];
+            # gitPlugins = with pkgs.neovimPlugins; [ ];
             general = with pkgs.vimPlugins; {
-              default = [
-                lze
-                lzextras
-                plenary-nvim
-                (nvim-notify.overrideAttrs { doCheck = false; })
-              ];
-              treesitter = with pkgs.vimPlugins; [
-                nvim-treesitter.withAllGrammars
-                # nvim-treesitter-textobjects
-                nvim-treesitter-context
-                nvim-autopairs
-              ];
-
-              extra = [
-                oil-nvim
-                mini-icons
-              ];
-            };
-            rust = with pkgs.vimPlugins; [
-              rustaceanvim
-            ];
-            themes = with pkgs.vimPlugins; [
-              catppuccin-nvim
-            ];
-          };
-
-          # not loaded automatically at startup.
-          # use with packadd and an autocommand in config to achieve lazy loading
-          optionalPlugins = {
-            gitPlugins = with pkgs.neovimPlugins; [ ];
-            lint = with pkgs.vimPlugins; [
-              nvim-lint
-            ];
-            format = with pkgs.vimPlugins; [
-              conform-nvim
-            ];
-            markdown = with pkgs.vimPlugins; [
-              markdown-preview-nvim
-            ];
-            neonixdev = with pkgs.vimPlugins; [
-              lazydev-nvim
-            ];
-            general = {
               blink = with pkgs.vimPlugins; [
                 luasnip
                 cmp-cmdline
@@ -208,6 +165,9 @@
                 telescope-nvim
               ];
               default = with pkgs.vimPlugins; [
+                lazy-nvim
+                plenary-nvim
+                (nvim-notify.overrideAttrs { doCheck = false; })
                 nvim-lspconfig
                 lualine-nvim
                 gitsigns-nvim
@@ -216,6 +176,8 @@
                 lazygit-nvim
               ];
               extra = with pkgs.vimPlugins; [
+                oil-nvim
+                mini-icons
                 fidget-nvim
                 which-key-nvim
                 comment-nvim
@@ -224,51 +186,78 @@
                 vim-startuptime
                 indent-blankline-nvim
               ];
+              treesitter = with pkgs.vimPlugins; [
+                nvim-treesitter.withAllGrammars
+                # nvim-treesitter-textobjects
+                nvim-treesitter-context
+                nvim-autopairs
+              ];
             };
-          };
-
-          # shared libraries to be added to LD_LIBRARY_PATH
-          # variable available to nvim runtime
-          sharedLibraries = {
-            general = with pkgs; [
-              # libgit2
+            rust = with pkgs.vimPlugins; [
+              rustaceanvim
             ];
-          };
-
-          # environmentVariables:
-          # this section is for environmentVariables that should be available
-          # at RUN TIME for plugins. Will be available to path within neovim terminal
-          environmentVariables = {
-            test = {
-              CATTESTVAR = "It worked!";
-            };
-          };
-
-          # If you know what these are, you can provide custom ones by category here.
-          # If you dont, check this link out:
-          # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
-          extraWrapperArgs = {
-            test = [
-              ''--set CATTESTVAR2 "It worked again!"''
+            themes = with pkgs.vimPlugins; [
+              catppuccin-nvim
             ];
-          };
 
-          # lists of the functions you would have passed to
-          # python.withPackages or lua.withPackages
-          # do not forget to set `hosts.python3.enable` in package settings
-
-          # get the path to this python environment
-          # in your lua config via
-          # vim.g.python3_host_prog
-          # or run from nvim terminal via :!<packagename>-python3
-          python3.libraries = {
-            test = (_: [ ]);
-          };
-          # populates $LUA_PATH and $LUA_CPATH
-          extraLuaPackages = {
-            test = [ (_: [ ]) ];
+            # not loaded automatically at startup.
+            # use with packadd and an autocommand in config to achieve lazy loading
+            lint = with pkgs.vimPlugins; [
+              nvim-lint
+            ];
+            format = with pkgs.vimPlugins; [
+              conform-nvim
+            ];
+            markdown = with pkgs.vimPlugins; [
+              markdown-preview-nvim
+            ];
+            neonixdev = with pkgs.vimPlugins; [
+              lazydev-nvim
+            ];
           };
         };
+
+      # shared libraries to be added to LD_LIBRARY_PATH
+      # variable available to nvim runtime
+      # sharedLibraries = {
+      #   general = with pkgs; [
+      #     # libgit2
+      #   ];
+      # };
+
+      # environmentVariables:
+      # this section is for environmentVariables that should be available
+      # at RUN TIME for plugins. Will be available to path within neovim terminal
+      # environmentVariables = {
+      #   test = {
+      #     CATTESTVAR = "It worked!";
+      #   };
+      # };
+
+      # If you know what these are, you can provide custom ones by category here.
+      # If you dont, check this link out:
+      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
+      # extraWrapperArgs = {
+      #   test = [
+      #     ''--set CATTESTVAR2 "It worked again!"''
+      #   ];
+      # };
+
+      # lists of the functions you would have passed to
+      # python.withPackages or lua.withPackages
+      # do not forget to set `hosts.python3.enable` in package settings
+
+      # get the path to this python environment
+      # in your lua config via
+      # vim.g.python3_host_prog
+      # or run from nvim terminal via :!<packagename>-python3
+      # python3.libraries = {
+      #   test = (_: [ ]);
+      # };
+      # # populates $LUA_PATH and $LUA_CPATH
+      # extraLuaPackages = {
+      #   test = [ (_: [ ]) ];
+      # };
 
       # And then build a package with specific categories from above here:
       # All categories you wish to include must be marked true,
@@ -320,7 +309,7 @@
         #     };
         #   };
         nxim =
-          { pkgs, name, ... }:
+          { pkgs, ... }:
           {
             # they contain a settings set defined above
             # see :help nixCats.flake.outputs.settings
@@ -352,6 +341,8 @@
               test = true;
               rust = true;
               AI = true;
+
+              have_nerd_font = true;
             };
             extra = {
               nixdExtras = {

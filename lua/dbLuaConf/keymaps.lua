@@ -1,22 +1,25 @@
 local opts = { noremap = true, silent = false }
 
-
 -- unmap space as it's leader key in normal mode.
 vim.keymap.set("n", "<space>", "<nop>", opts)
-vim.keymap.set("n", "<Esc>", "<nop>", opts)
+vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 
 vim.keymap.set("n", "<M-w>", "<cmd>:xa<CR>", opts)
 vim.keymap.set("c", "<M-w>", "xa<CR>", opts)
 vim.keymap.set("n", "WQ", "ZZ", opts)
-vim.keymap.set("n", "<leader>w", vim.cmd.w, { desc = "Save current file", unpack(opts)})
+vim.keymap.set("n", "<leader>w", vim.cmd.w, { desc = "Save current file", unpack(opts) })
 
 -- Yanking with system clipboard
-vim.keymap.set({"n","v", "x"}, "<leader>y", '"+y', { desc = "Yank to clipboard", unpack(opts)})
-vim.keymap.set({"n","v", "x"}, "<leader>Y", '"+yy', { desc = "Yank line to clipboard", unpack(opts)})
-vim.keymap.set({"n","v", "x"}, "<leader>p", '"+p', { desc = "Paste from clipboard", unpack(opts)})
-vim.keymap.set("i", "<C-p>", '<C-r>+', { desc = "Paste from clipboard from within insert mode", unpack(opts)})
-vim.keymap.set("x", "<leader>P", '"_dP', { desc = "Paste over selection without erasing unnamed register", unpack(opts)})
-
+vim.keymap.set({ "n", "v", "x" }, "<leader>y", '"+y', { desc = "Yank to clipboard", unpack(opts) })
+vim.keymap.set({ "n", "v", "x" }, "<leader>Y", '"+yy', { desc = "Yank line to clipboard", unpack(opts) })
+vim.keymap.set({ "n", "v", "x" }, "<leader>p", '"+p', { desc = "Paste from clipboard", unpack(opts) })
+vim.keymap.set("i", "<C-p>", "<C-r>+", { desc = "Paste from clipboard from within insert mode", unpack(opts) })
+vim.keymap.set(
+	"x",
+	"<leader>P",
+	'"_dP',
+	{ desc = "Paste over selection without erasing unnamed register", unpack(opts) }
+)
 
 -- default movement, but better
 vim.keymap.set("n", "j", "gj", opts)
@@ -48,7 +51,6 @@ vim.keymap.set("n", "L", "<cmd>bn<CR>", opts)
 -- new line before the cursor
 vim.keymap.set("i", "<M-O>", "O", opts)
 
-
 -- Cancel with C-c
 vim.keymap.set("n", "<C-c>", "<Esc>", opts)
 
@@ -58,15 +60,15 @@ vim.keymap.set("v", "<M-j>", ":m '>+1<CR>gv=gv", { noremap = true, silent = fals
 
 -- Rename word under cursor
 vim.keymap.set("n", "S", function()
-    local cmd = ":%s/<C-r><C-w>//gI<Left><Left><Left>"
-    local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
-    vim.api.nvim_feedkeys(keys, "n", false)
+	local cmd = ":%s/<C-r><C-w>//gI<Left><Left><Left>"
+	local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
+	vim.api.nvim_feedkeys(keys, "n", false)
 end, { noremap = true, desc = "Rename word under the cursor" })
 -- Rename <target> in region
 vim.keymap.set("v", "S", function()
-    local cmd = ":s//gI<Left><Left><Left>"
-    local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
-    vim.api.nvim_feedkeys(keys, "n", false)
+	local cmd = ":s//gI<Left><Left><Left>"
+	local keys = vim.api.nvim_replace_termcodes(cmd, true, false, true)
+	vim.api.nvim_feedkeys(keys, "n", false)
 end, { noremap = true, desc = "Replace <target> in region" })
 
 -- keep the selection while in/outdenting
@@ -84,4 +86,9 @@ gv			Start Visual mode with the same area as the previous
 -- Utils
 
 -- calculate current cursor's line
-vim.keymap.set("i", "<localleader>c", '<C-O>VY<C-O>$=<C-R>=<C-R>"<CR><C-O>yiw<C-O>$', { desc = "Calculate current line" })
+vim.keymap.set(
+	"i",
+	"<localleader>c",
+	'<C-O>VY<C-O>$=<C-R>=<C-R>"<CR><C-O>yiw<C-O>$',
+	{ desc = "Calculate current line" }
+)

@@ -1,10 +1,10 @@
 if nixCats("rust") then
 	return {
 		{
-			"rustaceanvim",
-			event = "DeferredUIEnter",
+			"mrcjkb/rustaceanvim",
+			event = "VeryLazy",
 			ft = { "rust" },
-			after = function()
+			config = function()
 				vim.g.rustaceanvim = {
 					server = {
 						on_attach = function(client, bufnr)

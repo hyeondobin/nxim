@@ -9,20 +9,24 @@ vim.opt.smartindent = true
 vim.opt.wrap = true
 
 -- Search
-vim.opt.hlsearch = false
+vim.opt.hlsearch = true
 vim.opt.incsearch = true
 vim.opt.ignorecase = true
 vim.opt.smartcase = true
+vim.opt.inccommand = "split"
 
 -- Appearance
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.showmode = false
 vim.opt.signcolumn = "yes:1"
 vim.opt.colorcolumn = "100"
 vim.opt.cmdheight = 1
 vim.opt.cursorline = true
 vim.opt.cursorcolumn = true
 vim.opt.conceallevel = 0
+vim.opt.list = true
+vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 
 -- Behavior
 vim.opt.hidden = true
@@ -35,7 +39,8 @@ vim.opt.splitbelow = true
 vim.opt.iskeyword:append("-")
 vim.opt.mouse:append("a")
 vim.opt.modifiable = true
-vim.opt.timeoutlen = 400
+vim.opt.updatetime = 250
+vim.opt.timeoutlen = 300
 vim.opt.updatetime = 200
 
 -- File

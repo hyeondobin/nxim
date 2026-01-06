@@ -1,9 +1,8 @@
-require("lze").load({
-	{
-		"nvim-lint",
-		for_cat = "lint",
+if nixCats("lint") then
+	return {
+		"mfussenegger/nvim-lint",
 		event = "FileType",
-		after = function(plugin)
+		config = function(plugin)
 			require("lint").linters_by_ft = {
 				lua = { "selene" },
 			}
@@ -13,5 +12,5 @@ require("lze").load({
 			-- 	end,
 			-- })
 		end,
-	},
-})
+	}
+end
