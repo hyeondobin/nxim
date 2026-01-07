@@ -37,7 +37,7 @@ vim.opt.backspace = "indent,eol,start"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
 vim.opt.iskeyword:append("-")
-vim.opt.mouse:append("a")
+vim.opt.mouse = "a"
 vim.opt.modifiable = true
 vim.opt.updatetime = 250
 vim.opt.timeoutlen = 300
@@ -47,5 +47,5 @@ vim.opt.updatetime = 200
 vim.opt.encoding = "UTF-8"
 vim.opt.backup = false
 vim.opt.swapfile = false
-vim.opt.undodir = vim.fn.expand("~/.vim/undodir")
+vim.opt.undodir = vim.fn.expand("~/.local/state/nvim/undodir")
 vim.opt.undofile = true
