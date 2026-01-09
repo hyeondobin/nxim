@@ -32,7 +32,7 @@ vim.opt.listchars = { tab = "» ", trail = "·", nbsp = "␣" }
 vim.opt.hidden = true
 vim.opt.scrolloff = 15
 vim.opt.errorbells = false
-vim.opt.completeopt = "menu,menuone,popup,fuzzy,preview"
+vim.opt.completeopt = "menuone,popup,fuzzy,preview"
 vim.opt.backspace = "indent,eol,start"
 vim.opt.splitright = true
 vim.opt.splitbelow = true
