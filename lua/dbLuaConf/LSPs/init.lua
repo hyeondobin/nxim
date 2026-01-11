@@ -33,6 +33,8 @@ return {
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("nxim-lsp-attach", { clear = true }),
 			callback = function(event)
+				local wk = require("which-key")
+
 				local map = function(keys, func, desc)
 					vim.keymap.set("n", keys, func, { buffer = event.buf, desc = "LSP: " .. desc })
 				end
@@ -47,6 +49,13 @@ return {
 				map("<leader>ca", vim.lsp.buf.code_action, "[C]ode [A]ction")
 				map("K", vim.lsp.buf.hover, "Hover Documentation")
 				map("gD", vim.lsp.buf.declaration, "[G]oto [D]eclaration")
+
+				wk.add({
+					{ "<leader>d", group = "LSP: [D]ocument" },
+					{ "<leader>w", group = "LSP: [W]orkspace" },
+					{ "<leader>r", group = "LSP: [R]e" },
+					{ "<leader>c", group = "LSP: [C]ode" },
+				})
 
 				-- clear highlights when moving cursor
 				local client = vim.lsp.get_client_by_id(event.data.client_id)
@@ -77,6 +86,9 @@ return {
 					map("<leader>th", function()
 						vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled())
 					end, "[T]oggle Inlay [H]ints")
+					wk.add({
+						{ "<leader>t", group = "LSP: [T]oggle" },
+					})
 				end
 			end,
 		})
@@ -112,8 +124,8 @@ return {
 				},
 			}
 		else
-			servers.rnix = {}
-			servers.nil_ls = {}
+			-- servers.rnix = {}
+			-- servers.nil_ls = {}
 		end
 
 		servers.lua_ls = {
