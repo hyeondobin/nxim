@@ -1,3 +1,11 @@
+local accept_or_jump = {
+	function(cmp)
+		if not cmp.snippet_active() then
+			return cmp.accept()
+		end
+	end,
+	"snippet_forward",
+}
 return {
 	{
 		"colorful-menu.nvim",
@@ -32,14 +40,8 @@ return {
 				keymap = {
 					preset = "default",
 					["<C-tab>"] = { "accept", "fallback" },
-					["<C-a>"] = {
-						function(cmp)
-							if not cmp.snippet_active() then
-								return cmp.accept()
-							end
-						end,
-						"snippet_forward",
-					},
+					["<C-a>"] = accept_or_jump,
+					["<C-j>"] = accept_or_jump,
 					["<C-e>"] = {
 						function(cmp)
 							if not cmp.snippet_active() then

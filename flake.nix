@@ -174,6 +174,7 @@
                 nvim-surround
                 vim-sleuth # 들여쓰기 넓이 자동 조정
                 lazygit-nvim
+                mini-nvim
               ];
               extra = with pkgs.vimPlugins; [
                 oil-nvim
