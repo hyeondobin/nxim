@@ -6,6 +6,7 @@ return {
 	{
 		"saghen/blink.cmp",
 		lazy = false,
+		version = "1.*",
 		dependencies = {
 			{
 				"L3MON4D3/luasnip",
