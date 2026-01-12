@@ -2,12 +2,11 @@ return {
 	{
 		"nvim-treesitter/nvim-treesitter",
 		event = "VeryLazy",
-		load = function(name)
-			vim.cmd.packadd(name)
-			vim.cmd.packadd("nvim-treesitter-textobjects")
-			vim.cmd.packadd("nvim-treesitter-context")
-		end,
-		after = function(plugin)
+		dependencies = {
+			"nvim-treesitter/nvim-treesitter-textobjects",
+			"nvim-treesitter/nvim-treesitter-context",
+		},
+		config = function(plugin)
 			require("nvim-treesitter").setup({
 				highlight = { enable = true },
 				indent = {
@@ -68,6 +67,13 @@ return {
 					},
 				},
 			})
+		end,
+	},
+	{
+		"nvim-treesitter/nvim-treesitter-textobjects",
+		branch = "main",
+		init = function()
+			vim.g.no_plugin_maps = true
 		end,
 	},
 }
