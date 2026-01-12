@@ -125,12 +125,30 @@
         "type": "github"
       }
     },
+    "plugins-treesitter-textobjects": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1768037950,
+        "narHash": "sha256-1EPAkKmGorpSkg++9zGEqvBsxDRSOi0B5DQVvv2NW0w=",
+        "owner": "nvim-treesitter",
+        "repo": "nvim-treesitter",
+        "rev": "5a7e5638e7d220575b1c22c8a2e099b52231886e",
+        "type": "github"
+      },
+      "original": {
+        "owner": "nvim-treesitter",
+        "ref": "main",
+        "repo": "nvim-treesitter",
+        "type": "github"
+      }
+    },
     "root": {
       "inputs": {
         "fenix": "fenix",
         "neovim-nightly-overlay": "neovim-nightly-overlay",
         "nixCats": "nixCats",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_2",
+        "plugins-treesitter-textobjects": "plugins-treesitter-textobjects"
       }
     },
     "rust-analyzer-src": {
