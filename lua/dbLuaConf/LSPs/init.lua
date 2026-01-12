@@ -56,10 +56,10 @@ return {
 					return diagnostic_message[diagnostic.severity]
 				end,
 			},
-			virtual_lines = {
-				enabled = false,
-				current_line = false,
-			},
+			-- virtual_lines = {
+			-- 	enabled = false,
+			-- 	current_line = true,
+			-- },
 		})
 		vim.api.nvim_create_autocmd("LspAttach", {
 			group = vim.api.nvim_create_augroup("nxim-lsp-attach", { clear = true }),

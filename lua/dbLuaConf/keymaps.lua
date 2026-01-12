@@ -6,7 +6,7 @@ vim.keymap.set("n", "<Esc>", "<cmd>nohlsearch<CR>", opts)
 
 vim.keymap.set("n", "<M-w>", "<cmd>:xa<CR>", opts)
 vim.keymap.set("c", "<M-w>", "xa<CR>", opts)
-vim.keymap.set("n", "WQ", "ZZ", opts)
+-- vim.keymap.set("n", "WQ", "ZZ", opts)
 vim.keymap.set("n", "<leader>w", vim.cmd.w, { desc = "Save current file", unpack(opts) })
 
 -- Yanking with system clipboard
