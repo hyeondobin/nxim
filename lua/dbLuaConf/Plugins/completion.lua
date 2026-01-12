@@ -6,31 +6,21 @@ local accept_or_jump = {
 	end,
 	"snippet_forward",
 }
+local show_sig_or_back = {
+	function(cmp)
+		if not cmp.snippet_active() then
+			return cmp.show_signature()
+		end
+	end,
+	"snippet_backward",
+}
 return {
-	{
-		"colorful-menu.nvim",
-		on_plugin = { "blink.cmp" },
-	},
 	{
 		"saghen/blink.cmp",
 		lazy = false,
 		version = "1.*",
 		dependencies = {
-			{
-				"L3MON4D3/luasnip",
-				config = function()
-					local luasnip = require("luasnip")
-					require("luasnip.loaders.from_vscode").lazy_load()
-					luasnip.config.setup({})
-
-					local ls = require("luasnip")
-					vim.keymap.set({ "i", "s" }, "<M-n>", function()
-						if ls.choice_active() then
-							ls.change_choice(1)
-						end
-					end)
-				end,
-			},
+			"L3MON4D3/luasnip",
 			"hrsh7th/cmp-cmdline",
 			"xzbdmw/colorful-menu.nvim",
 			"saghen/blink.compat",
@@ -42,14 +32,8 @@ return {
 					["<C-tab>"] = { "accept", "fallback" },
 					["<C-a>"] = accept_or_jump,
 					["<C-j>"] = accept_or_jump,
-					["<C-e>"] = {
-						function(cmp)
-							if not cmp.snippet_active() then
-								return cmp.show_signature()
-							end
-						end,
-						"snippet_backward",
-					},
+					["<C-e>"] = show_sig_or_back,
+					["<C-k>"] = show_sig_or_back,
 					["<C-,>"] = {
 						"show_signature",
 						"fallback",
@@ -144,6 +128,21 @@ return {
 					},
 				},
 			})
+		end,
+	},
+	{
+		"L3MON4D3/luasnip",
+		config = function()
+			local luasnip = require("luasnip")
+			require("luasnip.loaders.from_vscode").lazy_load()
+			luasnip.config.setup({})
+
+			local ls = require("luasnip")
+			vim.keymap.set({ "i", "s" }, "<M-n>", function()
+				if ls.choice_active() then
+					ls.change_choice(1)
+				end
+			end)
 		end,
 	},
 }
