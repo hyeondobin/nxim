@@ -28,7 +28,6 @@ return {
 				},
 			},
 		},
-		"harsh7th/blink.cmp",
 	},
 	config = function()
 		vim.diagnostic.config({

@@ -19,6 +19,13 @@ return {
 		"saghen/blink.cmp",
 		lazy = false,
 		version = "1.*",
+		build = function()
+			if require("nixCatsUtils").isNixCats then
+				return "nix run .#build-plugin"
+			else
+				return false
+			end
+		end,
 		dependencies = {
 			"L3MON4D3/luasnip",
 			"hrsh7th/cmp-cmdline",
