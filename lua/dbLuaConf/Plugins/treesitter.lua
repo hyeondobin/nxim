@@ -1,12 +1,18 @@
 return {
 	{
 		"nvim-treesitter/nvim-treesitter",
-		event = "VeryLazy",
+		lazy = false,
+		branch = "main",
 		dependencies = {
 			{ "nvim-treesitter/nvim-treesitter-textobjects", name = "treesitter-textobjects" },
 			"nvim-treesitter/nvim-treesitter-context",
 		},
-		config = function(plugin)
+		config = function()
+			vim.api.nvim_create_autocmd("FileType", {
+				callback = function()
+					pcall(vim.treesitter.start)
+				end,
+			})
 			require("nvim-treesitter").setup({
 				highlight = { enable = true },
 				indent = {
