@@ -31,6 +31,9 @@ local lazyOptions = {
 			lazy = "💤 ",
 		},
 	},
+	performance = {
+		reset_packpath = false,
+	},
 }
 
 require("nixCatsUtils.lazyCat").setup(nixCats.pawsible({ "allPlugins", "start", "lazy.nvim" }), {

@@ -9,7 +9,7 @@ return {
 			"nvim-treesitter/nvim-treesitter-context",
 		},
 		config = function(_, opts)
-			vim.opt.rtp:prepend(require("nixCats").pawsible.allPlugins.start["nvim-treesitter"] .. "/runtime")
+			-- vim.opt.rtp:prepend(require("nixCats").pawsible.allPlugins.start["nvim-treesitter"] .. "/runtime")
 			---@param buf integer
 			---@param language string
 			local function treesitter_try_attach(buf, language)
