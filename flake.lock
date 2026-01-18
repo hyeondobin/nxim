@@ -128,17 +128,17 @@
     "plugins-treesitter-textobjects": {
       "flake": false,
       "locked": {
-        "lastModified": 1768662939,
-        "narHash": "sha256-u2f1nhred9AK5s0DoF6x1cg/TxvR5rc5/G00fG1s+b4=",
+        "lastModified": 1768302252,
+        "narHash": "sha256-kbnZaUtIKXoBj4tFiQWSpGmI6Doke7PjoetqIhsI8lc=",
         "owner": "nvim-treesitter",
-        "repo": "nvim-treesitter",
-        "rev": "d19def46c112c26c17adeef88dd1253cc6d623a1",
+        "repo": "nvim-treesitter-textobjects",
+        "rev": "baa6b4ec28c8be5e4a96f9b1b6ae9db85ec422f8",
         "type": "github"
       },
       "original": {
         "owner": "nvim-treesitter",
         "ref": "main",
-        "repo": "nvim-treesitter",
+        "repo": "nvim-treesitter-textobjects",
         "type": "github"
       }
     },

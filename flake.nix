@@ -34,7 +34,7 @@
     };
 
     plugins-treesitter-textobjects = {
-      url = "github:nvim-treesitter/nvim-treesitter/main";
+      url = "github:nvim-treesitter/nvim-treesitter-textobjects/main";
       flake = false;
     };
 
@@ -125,7 +125,9 @@
               ripgrep
               fd
               stdenv.cc.cc
-              tree-sitter
+            ];
+            treesitter = [
+              pkgs.tree-sitter
             ];
             rust = [
               # inputs.fenix.packages.${pkgs.stdenv.hostPlatform.system}.stable.toolchain
@@ -155,54 +157,49 @@
 
           # This is for plugins that will load at startup without using packadd:
           startupPlugins = {
-            gitPlugins = with pkgs.neovimPlugins; [
-              treesitter-textobjects
-            ];
-            general = with pkgs.vimPlugins; {
-              default = with pkgs.vimPlugins; [
-                lazy-nvim
-                plenary-nvim
-                (nvim-notify.overrideAttrs { doCheck = false; })
-                nvim-lspconfig
-                lualine-nvim
-                gitsigns-nvim
-                nvim-surround
-                vim-sleuth # 들여쓰기 넓이 자동 조정
-                lazygit-nvim
-                mini-nvim
-                tabout-nvim
-                persistence-nvim
-              ];
-              blink = with pkgs.vimPlugins; [
-                luasnip
-                cmp-cmdline
-                blink-cmp
-                blink-compat
-                colorful-menu-nvim
-              ];
-              telescope = with pkgs.vimPlugins; [
-                telescope-fzf-native-nvim
-                telescope-ui-select-nvim
-                telescope-nvim
-              ];
-              extra = with pkgs.vimPlugins; [
-                oil-nvim
-                mini-icons
-                fidget-nvim
-                which-key-nvim
-                comment-nvim
-                undotree
-                vim-sleuth
-                vim-startuptime
-                indent-blankline-nvim
-              ];
-              treesitter = with pkgs.vimPlugins; [
-                nvim-treesitter.withAllGrammars
-                # nvim-treesitter-textobjects
-                nvim-treesitter-context
-                nvim-autopairs
+            gitPlugins = {
+              treesitter = with pkgs.neovimPlugins; [
+                treesitter-textobjects
               ];
             };
+            general = with pkgs.vimPlugins; [
+              lazy-nvim
+              plenary-nvim
+              (nvim-notify.overrideAttrs { doCheck = false; })
+              nvim-lspconfig
+              lualine-nvim
+              gitsigns-nvim
+              nvim-surround
+              vim-sleuth # 들여쓰기 넓이 자동 조정
+              lazygit-nvim
+              mini-nvim
+              tabout-nvim
+              persistence-nvim
+              luasnip
+              cmp-cmdline
+              blink-cmp
+              blink-compat
+              colorful-menu-nvim
+              telescope-fzf-native-nvim
+              telescope-ui-select-nvim
+              telescope-nvim
+              oil-nvim
+              mini-icons
+              fidget-nvim
+              which-key-nvim
+              comment-nvim
+              undotree
+              vim-sleuth
+              vim-startuptime
+              indent-blankline-nvim
+              nvim-autopairs
+            ];
+            treesitter = with pkgs.vimPlugins; [
+              nvim-treesitter.withAllGrammars
+              # nvim-treesitter-textobjects
+              nvim-treesitter-context
+
+            ];
             rust = with pkgs.vimPlugins; [
               rustaceanvim
             ];
@@ -227,58 +224,59 @@
           };
         };
 
-      # shared libraries to be added to LD_LIBRARY_PATH
-      # variable available to nvim runtime
-      # sharedLibraries = {
-      #   general = with pkgs; [
-      #     # libgit2
-      #   ];
-      # };
-
-      # environmentVariables:
-      # this section is for environmentVariables that should be available
-      # at RUN TIME for plugins. Will be available to path within neovim terminal
-      # environmentVariables = {
-      #   test = {
-      #     CATTESTVAR = "It worked!";
-      #   };
-      # };
-
-      # If you know what these are, you can provide custom ones by category here.
-      # If you dont, check this link out:
-      # https://github.com/NixOS/nixpkgs/blob/master/pkgs/build-support/setup-hooks/make-wrapper.sh
-      # extraWrapperArgs = {
-      #   test = [
-      #     ''--set CATTESTVAR2 "It worked again!"''
-      #   ];
-      # };
-
-      # lists of the functions you would have passed to
-      # python.withPackages or lua.withPackages
-      # do not forget to set `hosts.python3.enable` in package settings
-
-      # get the path to this python environment
-      # in your lua config via
-      # vim.g.python3_host_prog
-      # or run from nvim terminal via :!<packagename>-python3
-      # python3.libraries = {
-      #   test = (_: [ ]);
-      # };
-      # # populates $LUA_PATH and $LUA_CPATH
-      # extraLuaPackages = {
-      #   test = [ (_: [ ]) ];
-      # };
-
-      # And then build a package with specific categories from above here:
-      # All categories you wish to include must be marked true,
-      # but false may be omitted.
-      # This entire set is also passed to nixCats for querying within the lua.
-
       # see :help nixCats.flake.outputs.packageDefinitions
       packageDefinitions = {
         # These are the names of your packages
         # you can include as many as you wish.
         nxim =
+          { pkgs, ... }:
+          {
+            # they contain a settings set defined above
+            # see :help nixCats.flake.outputs.settings
+            settings = {
+              suffix-path = true;
+              suffix-LD = true;
+              wrapRc = true;
+              # IMPORTANT:
+              # your alias may not conflict with your other packages.
+              aliases = [
+                "nvim"
+                "vim"
+                "nx"
+                "xi"
+              ];
+              neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
+              configDirName = "nxim";
+            };
+            # and a set of categories that you want
+            # (and other information to pass to lua)
+            categories = {
+              general = true;
+              gitPlugins = {
+                treesitter = true;
+              };
+              treesitter = true;
+              lint = true;
+              format = true;
+              neonixdev = true;
+              themes = true;
+              customPlugins = true;
+              test = true;
+              rust = true;
+              AI = true;
+
+              have_nerd_font = true;
+            };
+            extra = {
+              nixdExtras = {
+                nixpkgs = "import ${pkgs.path} {}";
+                # or inherit nixpkgs;
+                nixos_options = "";
+                home_manager_options = "";
+              };
+            };
+          };
+        regularCats =
           { pkgs, ... }:
           {
             # they contain a settings set defined above
@@ -297,12 +295,16 @@
               ];
               neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
               configDirName = "nxim";
+              unwrappedCfgPath = utils.mkLuaInline "os.getenv('HOME') .. '/.config/nxim'";
             };
             # and a set of categories that you want
             # (and other information to pass to lua)
             categories = {
               general = true;
-              gitPlugins = true;
+              gitPlugins = {
+                treesitter = false;
+              };
+              treesitter = false;
               lint = true;
               format = true;
               neonixdev = true;
@@ -316,7 +318,7 @@
             };
             extra = {
               nixdExtras = {
-                nixpkgs = ''import ${pkgs.path} {}'';
+                nixpkgs = "import ${pkgs.path} {}";
                 # or inherit nixpkgs;
                 nixos_options = "";
                 home_manager_options = "";
@@ -361,7 +363,7 @@
             name = defaultPackageName;
             packages = [ defaultPackage ];
             inputsFrom = [ ];
-            shellHook = '''';
+            shellHook = "";
           };
         };
 
