@@ -278,46 +278,6 @@
       packageDefinitions = {
         # These are the names of your packages
         # you can include as many as you wish.
-        # regularCats =
-        #   { pkgs, ... }@misc:
-        #   {
-        #     settings = {
-        #       suffix-path = true;
-        #       suffix-LD = true;
-        #       # IMPURE PACKAGE: normal config reload
-        #       # include same categories as main config,
-        #       # will load from vim.fn.stdpath('config')
-        #       wrapRC = false;
-        #       # or tell it some other place to load
-        #       # unwrappedCfgPath = "/some/path/to/your/config";
-        #       # configDirName: will now look for `nxim` within .config and .local and others
-        #       # this can be changed so that you can choose which ones share data folders for auths
-        #       # :h $NVIM_APPNAME
-        #       configDirName = "nxim";
-        #       # unwrappedCfgPath = "/home/hyeondobin/repo/nxim";
-        #       aliases = [
-        #         "testCat"
-        #         "rc"
-        #       ];
-        #       neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
-        #     };
-        #     categories = {
-        #       general = true;
-        #       neonixdev = true;
-        #       rust = true;
-        #       lint = true;
-        #       format = true;
-        #       test = true;
-        #       lspDebugMode = false;
-        #       themes = true;
-        #       AI = true;
-        #     };
-        #     extra = {
-        #       nixdExtras = {
-        #         nixpkgs = ''import ${pkgs.path}{}'';
-        #       };
-        #     };
-        #   };
         nxim =
           { pkgs, ... }:
           {
@@ -358,6 +318,8 @@
               nixdExtras = {
                 nixpkgs = ''import ${pkgs.path} {}'';
                 # or inherit nixpkgs;
+                nixos_options = "";
+                home_manager_options = "";
               };
             };
           };
