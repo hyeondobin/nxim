@@ -289,10 +289,7 @@
               # IMPORTANT:
               # your alias may not conflict with your other packages.
               aliases = [
-                "nvim"
-                "vim"
-                "nx"
-                "xi"
+                "rc"
               ];
               neovim-unwrapped = inputs.neovim-nightly-overlay.packages.${pkgs.stdenv.hostPlatform.system}.neovim;
               configDirName = "nxim";
@@ -303,9 +300,9 @@
             categories = {
               general = true;
               gitPlugins = {
-                treesitter = false;
+                treesitter = true;
               };
-              treesitter = false;
+              treesitter = true;
               lint = true;
               format = true;
               neonixdev = true;
