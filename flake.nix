@@ -198,7 +198,8 @@
               nvim-treesitter.withAllGrammars
               # nvim-treesitter-textobjects
               nvim-treesitter-context
-
+              nvim-treesitter-parsers.nix
+              nvim-treesitter-parsers.rust
             ];
             rust = with pkgs.vimPlugins; [
               rustaceanvim
