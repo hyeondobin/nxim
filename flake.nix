@@ -102,11 +102,11 @@
       categoryDefinitions =
         {
           pkgs,
-          # settings,
-          # categories,
-          # extra,
-          # name,
-          # mkPlugin,
+          settings,
+          categories,
+          extra,
+          name,
+          mkPlugin,
           ...
         }@packageDef:
         {
