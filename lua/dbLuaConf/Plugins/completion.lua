@@ -1,19 +1,3 @@
-local accept_or_jump = {
-	function(cmp)
-		if not cmp.snippet_active() then
-			return cmp.accept()
-		end
-	end,
-	"snippet_forward",
-}
-local show_sig_or_back = {
-	function(cmp)
-		if not cmp.snippet_active() then
-			return cmp.show_signature()
-		end
-	end,
-	"snippet_backward",
-}
 return {
 	{
 		"saghen/blink.cmp",
@@ -32,15 +16,20 @@ return {
 			"xzbdmw/colorful-menu.nvim",
 			"saghen/blink.compat",
 		},
+		-- hjkl; or phaei
 		config = function()
 			require("blink.cmp").setup({
 				keymap = {
 					preset = "default",
 					["<C-tab>"] = { "accept", "fallback" },
-					["<C-a>"] = accept_or_jump,
-					["<C-j>"] = accept_or_jump,
-					["<C-e>"] = show_sig_or_back,
-					["<C-k>"] = show_sig_or_back,
+					-- qwerty
+					["<C-j>"] = { "snippet_forward" },
+					["<C-k>"] = { "snippet_backward" },
+					["<C-l>"] = { "select_and_accept" },
+					-- yeah
+					["<C-h>"] = { "snippet_forward" },
+					["<C-a>"] = { "snippet_backward" },
+
 					["<C-,>"] = {
 						"show_signature",
 						"fallback",
@@ -141,7 +130,7 @@ return {
 		"L3MON4D3/luasnip",
 		config = function()
 			local luasnip = require("luasnip")
-			require("luasnip.loaders.from_vscode").lazy_load()
+			require("luasnip.loaders.from_lua").lazy_load({ paths = vim.fn.stdpath("config") .. "/snippets" })
 			luasnip.config.setup({})
 
 			local ls = require("luasnip")
