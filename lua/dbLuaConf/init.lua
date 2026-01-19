@@ -32,7 +32,7 @@ local lazyOptions = {
 		},
 	},
 	performance = {
-		reset_packpath = false,
+		reset_packpath = require("nixCatsUtils").lazyAdd(true, false),
 	},
 }
 
