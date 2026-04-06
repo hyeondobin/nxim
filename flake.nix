@@ -195,6 +195,7 @@
               nvim-autopairs
               orgmode
               org-roam-nvim
+              jj-nvim
             ];
             treesitter = with pkgs.vimPlugins; [
               nvim-treesitter.withAllGrammars
