@@ -103,7 +103,15 @@ return {
 				},
 				sources = {
 					default = { "lsp", "path", "snippets", "buffer", "omni" },
+					per_filetype = {
+						org = { "orgmode" },
+					},
 					providers = {
+						orgmode = {
+							name = "Orgmode",
+							module = "orgmode.org.autocompletion.blink",
+							fallbacks = { "buffer" },
+						},
 						path = {
 							score_offset = 50,
 						},

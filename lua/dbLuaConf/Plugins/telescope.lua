@@ -49,10 +49,18 @@ return {
 		-- event = "",
 		-- ft = "",
 		keys = {
+			{
+				"<leader>soh",
+				function()
+					Consult_org_heading()
+				end,
+				mode = { "n" },
+				desc = "[H]eadings",
+			},
 			{ "<leader>sM", "<cmd>Telescope notify<CR>", mode = { "n" }, desc = "[S]earch [M]essage" },
 			{ "<leader>sp", live_grep_git_root, mode = { "n" }, desc = "[S]earch git [P]roject root" },
 			{
-				"<leader>/",
+				"<leader>?",
 				function()
 					-- Slightly advanced example of overriding default behavior and theme
 					-- You can pass additional configuration to telescope to change theme, layout, etc.
@@ -65,7 +73,7 @@ return {
 				desc = "[/] Fuzzily search in current buffer",
 			},
 			{
-				"<leader>s/",
+				"<leader>s?",
 				function()
 					require("telescope.builtin").live_grep({
 						grep_open_files = true,
@@ -185,6 +193,60 @@ return {
 			pcall(require("telescope").load_extension, "ui-select")
 
 			vim.api.nvim_create_user_command("LiveGrepGitRoot", live_grep_git_root, {})
+
+			local pickers = require("telescope.pickers")
+			local finders = require("telescope.finders")
+			local conf = require("telescope.config").values
+			local actions = require("telescope.actions")
+			local action_state = require("telescope.actions.state")
+
+			function Consult_org_heading()
+				local lines = vim.api.nvim_buf_get_lines(0, 0, -1, false)
+				local headings = {}
+				-- find headings starts with *
+				for i, line in ipairs(lines) do
+					if line:match("^%*+%s") then
+						table.insert(headings, { lnum = i, text = line })
+					end
+				end
+
+				if #headings == 0 then
+					print("이 버퍼에는 Org heading이 없습니다.")
+					return
+				end
+
+				-- create Telescope window
+				pickers
+					.new({}, {
+						prompt_title = "Org Headings (Current Buffer)",
+						finder = finders.new_table({
+							results = headings,
+							entry_maker = function(entry)
+								return {
+									value = entry,
+									display = entry.text,
+									ordinal = entry.text,
+									lnum = entry.lnum,
+									filename = vim.api.nvim_buf_get_name(0),
+								}
+							end,
+						}),
+						sorter = conf.generic_sorter({}),
+						previewer = conf.qflist_previewer({}),
+						attach_mappings = function(prompt_bufnr, map)
+							actions.select_default:replace(function()
+								actions.close(prompt_bufnr)
+								local selection = action_state.get_selected_entry()
+								if selection then
+									vim.api.nvim_win_set_cursor(0, { selection.lnum, 0 })
+									vim.cmd("normal! zv")
+								end
+							end)
+							return true
+						end,
+					})
+					:find()
+			end
 		end,
 	},
 }
