@@ -158,8 +158,8 @@
           # This is for plugins that will load at startup without using packadd:
           startupPlugins = {
             gitPlugins = {
-              treesitter = with pkgs.neovimPlugins; [
-                treesitter-textobjects
+              treesitter = [
+                pkgs.neovimPlugins.treesitter-textobjects
               ];
             };
             general = with pkgs.vimPlugins; [
@@ -193,6 +193,8 @@
               vim-startuptime
               indent-blankline-nvim
               nvim-autopairs
+              orgmode
+              org-roam-nvim
             ];
             treesitter = with pkgs.vimPlugins; [
               nvim-treesitter.withAllGrammars
